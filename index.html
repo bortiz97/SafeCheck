@@ -384,13 +384,85 @@ footer {
 
 <script>
 
+
 function previewSearch() {
+  const name = document.getElementById("person").value.trim();
+  const state = document.getElementById("state").value.trim();
+  const result = document.getElementById("result");
 
-  document.getElementById("result").textContent =
+  result.replaceChildren();
 
-    "SafeCheck is currently a prototype. " +
+  if (!name || !state) {
+    result.textContent = "Please enter a full name and state.";
+    return;
+  }
 
-    "Live public-record searches are not yet available.";
+  const validDemo =
+    name.toLowerCase() === "jordan example" &&
+    ["texas", "tx"].includes(state.toLowerCase());
+
+  if (!validDemo) {
+    result.textContent =
+      "This prototype only supports the fictional demo profile: " +
+      "Jordan Example, Texas. No real records are searched.";
+    return;
+  }
+
+  const report = document.createElement("div");
+  report.style.textAlign = "left";
+  report.style.marginTop = "25px";
+  report.style.padding = "20px";
+  report.style.background = "#edf5f7";
+  report.style.borderRadius = "8px";
+  report.style.lineHeight = "1.7";
+
+  report.innerHTML = `
+    <h3 style="color:#142c45; margin-top:0;">
+      SafeCheck Sample Report
+    </h3>
+
+    <p><strong>FICTIONAL DEMONSTRATION</strong></p>
+    <p><strong>Name:</strong> Jordan Example</p>
+    <p><strong>State:</strong> Texas</p>
+    <p><strong>Report ID:</strong> SC-DEMO-001</p>
+
+    <hr>
+
+    <h4>Domestic Violence Conviction</h4>
+    <p><strong>Illustrative year:</strong> 2022</p>
+    <p><strong>Sample outcome:</strong> Convicted</p>
+
+    <h4>Protective Order</h4>
+    <p><strong>Illustrative year:</strong> 2023</p>
+    <p><strong>Sample status:</strong> Expired</p>
+
+    <h4>Sexual Assault Charge</h4>
+    <p><strong>Illustrative year:</strong> 2025</p>
+    <p><strong>Sample status:</strong> Pending</p>
+    <p>A pending charge is not a conviction.</p>
+
+    <hr>
+
+    <h4>Verification Information</h4>
+    <p><strong>Identity verification:</strong>
+       Not performed — fictional profile</p>
+    <p><strong>Official records:</strong>
+       None accessed</p>
+    <p><strong>Ongoing updates:</strong>
+       Proposed feature, not active</p>
+
+    <p style="font-size:13px; color:#526171;">
+      All information in this report is invented for
+      demonstration purposes. It does not describe
+      a real person or an actual court case.
+      A record search cannot establish whether
+      someone is safe or dangerous.
+    </p>
+  `;
+
+  result.appendChild(report);
+}
+
 
 }
 
